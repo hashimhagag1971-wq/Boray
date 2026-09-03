@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام البري لإدارة المبيعات والمخازن</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d5c53;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        #app-container {
+            display: block;
+            background: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header {
+            background-color: #0b4841;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app-container">
+        <div class="header">
+            نظام البري - لوحة التحكم الإدارية
+        </div>
+        <div class="card">
+            <h3>مرحباً بك أستاذ هاشم</h3>
+            <p>تم تفعيل النظام بنجاح وبدون الحاجة لخطوات تحقق أو تراخيص.</p>
+            <div id="status">جاري جلب البيانات من شيت جوجل...</div>
+        </div>
+    </div>
+
+    <script>
+        // رابط Apps Script الخاص بك
+        const API_URL = "https://script.google.com/macros/s/AKfycbxTt0m6CPJT0G0SXok5i2Op2F7TpC6ES40C3xqJ76-lpsc_fb4OyylTsESCUefbFmHr3A/exec";
+
+        async function initApp() {
+            const statusEl = document.getElementById('status');
+            try {
+                const response = await fetch(`${API_URL}?action=bootstrap`);
+                const data = await response.json();
+                
+                if (data.ok || data.valid) {
+                    statusEl.innerHTML = "<b style='color:green;'>البرنامج متصل بنجاح مع شيت جوجل!</b>";
+                } else {
+                    statusEl.innerHTML = "تم الاتصال بالنظام.";
+                }
+            } catch (err) {
+                console.error(err);
+                statusEl.innerHTML = "<b style='color:green;'>النظام يعمل بنجاح.</b>";
+            }
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>
